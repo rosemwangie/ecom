@@ -3,6 +3,8 @@ package com.ecommerce.product_service.service;
 import com.ecommerce.product_service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.ecommerce.product_service.repository.ProductRepository;
 
@@ -14,11 +16,15 @@ import java.util.List;
     @Autowired
     private ProductRepository productRepository;
 
-    @Cacheable(value = "products")
+
     public List<Product> getAllProducts(){
-        System.out.println("Fetching products from the database...");
         return productRepository.findAll();
     }
+
+    public Page<Product> getAllProductsWithPagination(int offset, int pageSize){
+        return productRepository.findAll(PageRequest.of(offset, pageSize));
+    }
+
     public Product addProduct(Product product){
         return productRepository.save(product);
     }
