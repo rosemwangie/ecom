@@ -6,6 +6,7 @@ import lombok.*;
 @Entity
 @Data
 @Table(name = "product")
+@ToString
 public class Product {
 
     @Id
