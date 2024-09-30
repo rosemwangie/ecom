@@ -1,7 +1,8 @@
-package com.ecommerce.product_service.controller;
+package com.ecommerce.product_service.api.controller;
 
-import com.ecommerce.product_service.model.Product;
-import com.ecommerce.product_service.service.ProductService;
+import com.ecommerce.product_service.api.database.entities.Product;
+import com.ecommerce.product_service.api.hateaoas.PageApiResponse;
+import com.ecommerce.product_service.api.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,11 @@ public class ProductController {
     }
 
     @GetMapping("/pagination/{offset}/{pageSize}")
-    public Page<Product> getAllProductsWithPagination(@PathVariable int offset, @PathVariable int pageSize){
-        return productService.getAllProductsWithPagination(offset, pageSize);
+    public PageApiResponse<List<Product>> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return productService.getAllProductsWithPagination(page, size);
     }
 
     @PostMapping

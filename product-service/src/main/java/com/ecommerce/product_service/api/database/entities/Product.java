@@ -1,4 +1,4 @@
-package com.ecommerce.product_service.model;
+package com.ecommerce.product_service.api.database.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
