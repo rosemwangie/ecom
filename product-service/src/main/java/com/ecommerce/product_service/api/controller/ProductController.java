@@ -3,8 +3,6 @@ package com.ecommerce.product_service.api.controller;
 import com.ecommerce.product_service.api.database.entities.Product;
 import com.ecommerce.product_service.api.hateaoas.PageApiResponse;
 import com.ecommerce.product_service.api.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +13,11 @@ import java.util.List;
 @RequestMapping("/v1/api/product")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
     public List<Product> getAllProducts(){
